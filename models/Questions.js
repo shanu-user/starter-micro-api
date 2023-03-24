@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 const QuestionsSchema = mongoose.Schema({
     questionTitle: {type: String, required: "Question must have a title"},
     questionBody: {type: String, required: "Question must have a body"},
-    questionTags: {type: String, required: "Question must have tags"},
+    questionTags: {type: [String], required: "Question must have tags"},
     noOfAnswers: {type: Number, default: 0},
     upVote: {type: [String], default: []},
     downVote: {type: [String], default: []},
@@ -11,8 +11,8 @@ const QuestionsSchema = mongoose.Schema({
     userId: {type: String},
     askedOn: {type: Date, default: Date.now},
     answer: [{
-        answerBody: String,
-        userAnswered: String,
+        answerBody: {type: String, default: ""},
+        userAnswered: {type: String, default: ""},
         userId: String, 
         answeredOn: {type: Date, default: Date.now},
     }],

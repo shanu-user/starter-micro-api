@@ -3,8 +3,8 @@ import Questions from '../models/Questions.js'
 
 export const postAnswer = async(req,res) =>{
     const { id: _id } =req.params;
-    const { noOfAnswers, answerBody, userAnswered, userId} =req.body;
-    
+    const { noOfAnswers, answerBody, userAnswered} =req.body;
+    const userId = req.userId
     if(!mongoose.Types.ObjectId.isValid(_id)){
         return res.status(404).send('question unavailable..')
     }
@@ -12,16 +12,16 @@ export const postAnswer = async(req,res) =>{
     updateNoOfQuestions(_id, noOfAnswers)
 
     try{
-        const updatedQuestion = await Questions.findByIdAndUpdate(_id, { $addToSet: {'answer' : [{ answerBody, userAnswered, userId }]}}  )
+        const updatedQuestion = await Questions.findByIdAndUpdate(_id, { $addToSet: {answer : [{ answerBody, userAnswered, userId }]}}  )
         res.status(200).json(updatedQuestion)
     }catch(error){
-        res.status(404).json(error)
+        res.status(404).json("error in updating")
     }
 }
 
 const updateNoOfQuestions = async (_id, noOfAnswers)=>{
     try{
-        await Questions.findByIdAndUpdate( _id, { $set: {'noOfAnswers' : noOfAnswers}})
+        await Questions.findByIdAndUpdate( _id, { $set: {noOfAnswers : noOfAnswers}})
     }
     catch(error){
         console.log(error)
@@ -30,7 +30,7 @@ const updateNoOfQuestions = async (_id, noOfAnswers)=>{
 
 export const deleteAnswer = async( req, res ) => {
     const {id: id} = req.params;
-    const {answerId, noOfAnswer } = req.body
+    const {answerId, noOfAnswers } = req.body
 
     if(!mongoose.Types.ObjectId.isValid(_id)){
         return res.status(404).send('Question unavailable...')
@@ -42,7 +42,7 @@ export const deleteAnswer = async( req, res ) => {
     try{
         await Questions.updateOne(
             {_id},
-            { $pull: {'answer': {_id, answerId}}}
+            { $pull: {answer: {_id, answerId}}}
         )
         res.status(200).json({ message: "Successfully deleted..."})
     }
