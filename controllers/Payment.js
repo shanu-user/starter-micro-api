@@ -12,11 +12,7 @@ export const createPayment = async (req, res) =>{
     //         amount: 1,
     //         currency: "inr",
     //         source: {
-    //             "object": "card",
-    //             "number": "6521650191259828",
-    //             "exp_month": 7,
-    //             "exp_year": 2029,
-    //             "cvc": "691"
+    //            
     //         },
     //         "description": "Free Trial"
     //     })
