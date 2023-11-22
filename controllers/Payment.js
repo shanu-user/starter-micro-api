@@ -12,7 +12,11 @@ export const createPayment = async (req, res) =>{
     //         amount: 1,
     //         currency: "inr",
     //         source: {
+<<<<<<< HEAD
     //             
+=======
+    //            
+>>>>>>> 9c60a38fd9b8086517ce35ba5b7d4b41861a8c18
     //         },
     //         "description": "Free Trial"
     //     })
