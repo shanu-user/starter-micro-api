@@ -26,7 +26,7 @@ app.post('/payment', paymentRoutes)
 app.use('/user',userRoutes)
 app.use('/payment',paymentRoutes)
 app.use('/questions',questionRoutes)
-app.use('answer',answerRoutes)
+app.use('/answer',answerRoutes)
 
 const PORT=process.env.PORT || 5000
 
